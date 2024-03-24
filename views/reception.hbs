@@ -1,0 +1,186 @@
+<html>
+  <head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Page title -->
+    <title>Reception</title>
+  </head>
+
+  <body class="bg-gray-900 text-gray-300">
+    <section>
+      <!-- NAV BAR -->
+      <nav class="bg-gray-900 px-4 py-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+          <a href="#" class="flex items-center">
+            <img
+              src="/public/imgs/logo.svg"
+              alt="logo"
+              class="h-10 w-10 mr-2"
+            />
+            <span class="font-semibold text-xl tracking-tight text-gray-300">PSM
+              PHARMACEUTICALS</span>
+          </a>
+          <form action="/logout" method="GET">
+            <button
+              type="submit"
+              class="bg-gray-700 text-gray-300 px-3 py-2 rounded hover:bg-gray-600"
+            >
+              Logout
+            </button>
+          </form>
+        </div>
+      </nav>
+
+      <div class="container mx-auto">
+        <div class="bg-gray-800 rounded-lg p-8 mt-8">
+          <h1 class="text-4xl font-bold text-gray-300 mb-4">Reception Desk</h1>
+          <h6 class="text-xl text-gray-400 mb-4">{{todaysDate}}</h6>
+         
+        </div>
+
+        <div class="bg-gray-800 rounded-lg p-8 mt-8">
+          <h2 class="text-2xl font-bold text-gray-300 mb-4">Patient List</h2>
+          <button
+            type="button"
+            class="bg-gray-700 text-gray-300 px-3 py-2 rounded hover:bg-gray-600 mb-4"
+            data-bs-toggle="modal"
+            data-bs-target="#newrecordmodal"
+          >
+            New Record
+          </button>
+
+          <table class="table-auto w-full">
+            <thead>
+              <tr>
+                <th class="px-4 py-2">Patient Name</th>
+                <th class="px-4 py-2">Contact Information</th>
+                <th class="px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each Patients}}
+                <tr id="patient-{{patientID}}">
+                  <td class="px-4 py-2">{{patientName}}</td>
+                  <td class="px-4 py-2">{{phone}}</td>
+                  <td class="px-4 py-2">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-bs-toggle="modal" data-bs-target="#editRecordModal{{patientID}}"> Edit </button>
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="deletePatient('{{patientID}}')"> Delete </button>
+                  </td>
+                </tr>
+                <!-- Edit Record Modal -->
+                <div id="editRecordModal{{patientID}}" class="modal fade" tabindex="-1" aria-labelledby="editRecordModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-xl">
+                    <div class="modal-content bg-gray-800">
+                      <div class="modal-header border-b border-gray-700">
+                        <h5 class="modal-title text-white text-2xl font-bold" id="editRecordModalLabel">Edit Patient Information</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body text-gray-300">
+                        <form method="POST" action="http://localhost:4000/receptionist/patients/{{patientID}}">
+                          <div class="mb-3">
+                            <label for="recordTitle" class="form-label">Patient Name</label>
+                            <input type="text" class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" id="updatedName" name="updatedName" value="{{patientName}}">
+                          </div>
+                          <div class="mb-3">
+                            <label for="recordNotes" class="form-label">Patient Age</label>
+                            <textarea class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" id="updatedAge" rows="3" name="updatedAge" value="{{patientAge}}">{{patientAge}}</textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label for="recordPrescription" class="form-label">Sex</label>
+                            <textarea class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" id="updatedSex" rows="3" name="updatedSex" value="{{sex}}">{{sex}}</textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label for="recordPrescription" class="form-label">Blood Type</label>
+                            <textarea class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" id="updatedBloodType" rows="3" name="updatedBloodType" value="{{bloodType}}">{{this.bloodType}}</textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label for="recordPrescription" class="form-label">Phone Number</label>
+                            <textarea class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" id="updatedPhone" rows="3" name="updatedPhone" value="{{phone}}">{{phone}}</textarea>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-info">Save changes</button>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Edit Record Modal -->
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- New Record Modal -->
+      <div id="newrecordmodal" class="modal fade" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content bg-gray-800">
+            <div class="modal-header border-b border-gray-700">
+                <h5 class="modal-title text-white text-2xl font-bold" id="ModalLabel">New Patient Information</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-gray-300">
+                <form action="/patients" method="POST">
+                    <div class="mb-3">
+                        <label for="patientName" class="form-label text-gray-400">Patient Name:</label>
+                        <input id="patientName" name="patientName" type="text" class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="patientAge" class="form-label text-gray-400">Patient Age:</label>
+                        <input id="patientAge" name="patientAge" type="text" class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="sex" class="form-label text-gray-400">Sex:</label>
+                        <input id="sex" name="sex" type="text" class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="bloodType" class="form-label text-gray-400">Blood Type:</label>
+                        <input id="bloodType" name="bloodType" type="text" class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label text-gray-400">Phone:</label>
+                        <input id="phone" name="phone" type="text" class="form-control bg-gray-700 border-0 text-white focus:bg-gray-700 focus:border-gray-600 focus:ring-0" />
+                    </div>
+            </div>
+            <div class="modal-footer border-t border-gray-700">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+      <!-- End of New Record Modal -->
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+    ></script>
+    <script src="http://localhost:4000/public/js/main.js"></script>
+
+  </body>
+</html>

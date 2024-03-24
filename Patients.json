@@ -1,0 +1,27 @@
+[
+  {
+    "patientID": "49d651d1-979f-487a-8ef5-db40b893bcb6",
+    "patientName": "Vinit Solanki",
+    "bloodType": "B+",
+    "phone": "07257895598",
+    "patientAge": "2",
+    "sex": "2",
+    "medicalRecords": [
+      {
+        "id": "54be8570-d5cd-4bda-b078-a3441a637b17",
+        "date": "Sat Mar 23 2024",
+        "title": "cancer2",
+        "sessionnotes": "IDK2",
+        "prescription": "DEAD"
+      }
+    ]
+  },
+  {
+    "patientID": "e4de21c8-8f9f-4ca3-a17a-085fa72d9f96",
+    "patientName": "Khawlah Essak",
+    "patientAge": "23",
+    "sex": "F",
+    "bloodType": "B+",
+    "phone": "0734710203"
+  }
+]

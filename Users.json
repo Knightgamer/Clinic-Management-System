@@ -1,0 +1,20 @@
+[
+  {
+    "username": "Shivam",
+    "name": "Shivam",
+    "password": "Shivam",
+    "role": "Doctor"
+  },
+  {
+    "username": "Abdullahi",
+    "name": "Abdullahi",
+    "password": "Abdullahi",
+    "role": "Doctor"
+  },
+  {
+    "username": "Jamie",
+    "name": "Jamie",
+    "password": "Jamie",
+    "role": "Receptionist"
+  }
+]

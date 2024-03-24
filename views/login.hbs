@@ -1,0 +1,64 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login</title>
+  </head>
+  <body class="bg-gray-900 text-gray-300">
+    <!-- NAV BAR -->
+    <nav class="bg-gray-800 px-4 py-4 shadow">
+      <div class="container mx-auto flex justify-between items-center">
+        <a href="#" class="flex items-center">
+          <img src="/public/imgs/logo.svg" alt="logo" class="h-10 w-10 mr-2" />
+          <span class="font-semibold text-xl tracking-tight text-gray-300">PSM
+            PHARMACEUTICALS</span>
+        </a>
+      </div>
+    </nav>
+    <div class="container mx-auto flex justify-center items-center h-screen">
+      <div class="w-full max-w-md bg-gray-800 p-8 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-8 text-center">LOGIN</h1>
+        <form id="form" action="/user" method="post">
+          <!-- Error Message Display -->
+          {{#if errorMessage}}
+            <div class="mb-4 bg-red-500 text-white p-2 rounded">
+              {{errorMessage}}
+            </div>
+          {{/if}}
+          <div class="mb-4">
+            <label
+              for="username"
+              class="block text-sm font-medium text-gray-400"
+            >Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="mt-1 h-[3vh] focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-700 bg-gray-700 text-white rounded-md"
+            />
+          </div>
+          <div class="mb-4">
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-400"
+            >Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="mt-1 h-[3vh] focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-700 bg-gray-700 text-white rounded-md"
+            />
+          </div>
+          <div class="flex justify-center">
+            <button
+              type="submit"
+              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full transition duration-150 ease-in-out"
+            >Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
